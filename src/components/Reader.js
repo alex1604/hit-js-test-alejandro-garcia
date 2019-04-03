@@ -31,8 +31,8 @@ class Reader extends Component {
                         this.state.whitepapers.map(paper => {
                             return (
                             <div key={paper.id}>
-                                <h4>{paper.title.rendered}</h4>
-                                {ReactHtmlParser(paper.content.rendered)}
+                                <PaperTitle>{paper.title.rendered}</PaperTitle>
+                                <PaperContent>{ReactHtmlParser(paper.content.rendered)}</PaperContent>
                             </div>
                             )
                         })
@@ -46,6 +46,17 @@ class Reader extends Component {
 const ReaderContainer = styled.div`
   height: 10vh;
   width: 96vw;
+`
+const PaperTitle = styled.div`
+  color: black;
+  font-size: calc(10px + 1vmin);
+  font-family: 'Playfair Display', serif;
+`
+
+const PaperContent = styled.div`
+  color: black;
+  font-size: calc(10px + 1vmin);
+  font-family: 'Lato', sans-serif;
 `
 
 export default Reader;
