@@ -3,70 +3,56 @@ import 'semantic-ui-css/semantic.min.css'
 import styled from 'styled-components';
 import WhitePaper from './WhitePaper'
 
+let links = []
+
 class Reader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      whitepapers: [],
+        papersLoaded: false
     };
     this.parser = new DOMParser();
+    //this.getDownloadLink = this.getDownloadLink.bind(this)
   }
-
-  getDownloadLink = links => {
-    let pdfUri
+  /*async getDownloadLink (links) {
     let attachmentUri = links["wp:attachment"][0].href
-    if (attachmentUri !== undefined) {
-      fetch(attachmentUri, {
-        method: 'GET'
-      })
-        .then(response => response.body)
-        .then(body => {
-          const reader = body.getReader();
-          reader.read().then(res =>
-            String.fromCharCode(...new Uint8Array(res.value))
-          )
-            .then(decoded =>
-              JSON.parse(decoded)
-            )
-            .then(data => {
-              if (data[0] !== undefined) {
-                pdfUri = data[0].source_url
-                console.log(pdfUri)
-                return pdfUri
-              }
-            })
-        })
-        .catch(err => console.log(err))
+    if (attachmentUri === undefined) {
+      return -1
     }
+    const response = await fetch(attachmentUri);
+    const body = await response.body.getReader().read()
+    const decoded = await String.fromCharCode(...new Uint8Array(body.value))
+    const parsed = await JSON.parse(decoded)
+    const pdfUri = parsed[0] !== undefined ? await parsed[0].source_url : undefined
+    return pdfUri
   }
-
-  componentWillMount() {
-    fetch('https://humanit.se/wp-json/wp/v2/whitepaper', { // fetch whitepapers from API
-      method: 'GET',
+  addPdf = (papers) => {
+    return papers.map(paper => {
+      this.getDownloadLink(paper._links).then(function(res) {
+        links.push(res)
+        console.log(links)
+      })
     })
-      .then(response => response.json()) //
-      .then((data) => {
-        this.setState({whitepapers: data})
-      })
-      .catch((err) => {
-        console.log(err);
-        // handle error
-      })
-  }
+  }*/
 
-  componentDidMount(){
-    let whitepapers = this.state.whitepapers
-    for(let i=0; i < whitepapers.length; i++) {
-      whitepapers[i].pdfUri = this.getDownloadLink(whitepapers[i]._links)
-    }
-    this.setState(whitepapers)
-  }
+  async componentDidMount(){
+    this.setState({whitepapers: this.props.whitepapers}, () => {
+        this.setState({papersLoaded: true})
+        /*this.addPdf(this.props.whitepapers)
+    }, () => {
+        this.setState({papersLoaded: true, links: links})
+    })*/
+    //let links = await this.addPdf(this.props.whitepapers)
+  })
+}
 
   render() {
-    const { whitepapers } = this.state;
+    const { whitepapers } = this.state
+    let renderWhitePapers = this.state.papersLoaded ? whitepapers.map(paper => 
+        WhitePaper(paper)) : null
     return (
       <ReaderContainer className="ui stackable cards centered">
-        {whitepapers.map(paper => WhitePaper(paper.title.rendered, paper.content.rendered, paper.id, paper.pdfUri))}
+        {renderWhitePapers}
       </ReaderContainer>
     );
   }
