@@ -1,62 +1,83 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
-import ReactHtmlParser from 'react-html-parser';
+import 'semantic-ui-css/semantic.min.css'
+import styled from 'styled-components';
+import WhitePaper from './WhitePaper'
 
 class Reader extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            whitepapers: []
-        }
-        this.parser = new DOMParser()
-    }
-    componentDidMount() {
-        fetch("https://humanit.se/wp-json/wp/v2/whitepaper", {  // fetch whitepapers from API
-            method: 'GET'
-        })
-            .then(response => response.json()) // 
+  constructor(props) {
+    super(props);
+    this.state = {
+      whitepapers: [],
+    };
+    this.parser = new DOMParser();
+  }
+
+  getDownloadLink = links => {
+    let pdfUri
+    let attachmentUri = links["wp:attachment"][0].href
+    if (attachmentUri !== undefined) {
+      fetch(attachmentUri, {
+        method: 'GET'
+      })
+        .then(response => response.body)
+        .then(body => {
+          const reader = body.getReader();
+          reader.read().then(res =>
+            String.fromCharCode(...new Uint8Array(res.value))
+          )
+            .then(decoded =>
+              JSON.parse(decoded)
+            )
             .then(data => {
-                this.setState({ whitepapers: data })
+              if (data[0] !== undefined) {
+                pdfUri = data[0].source_url
+                console.log(pdfUri)
+                return pdfUri
+              }
             })
-            .catch(err => {
-                // handle error
-            })
+        })
+        .catch(err => console.log(err))
     }
-    render() {
-        
-        return (
-            <ReaderContainer>
-                {
-                    this.state.whitepapers !== undefined ?
-                        this.state.whitepapers.map(paper => {
-                            return (
-                            <div key={paper.id}>
-                                <PaperTitle>{paper.title.rendered}</PaperTitle>
-                                <PaperContent>{ReactHtmlParser(paper.content.rendered)}</PaperContent>
-                            </div>
-                            )
-                        })
-                        : null
-                }
-            </ReaderContainer>
-        );
+  }
+
+  componentWillMount() {
+    fetch('https://humanit.se/wp-json/wp/v2/whitepaper', { // fetch whitepapers from API
+      method: 'GET',
+    })
+      .then(response => response.json()) //
+      .then((data) => {
+        this.setState({whitepapers: data})
+      })
+      .catch((err) => {
+        console.log(err);
+        // handle error
+      })
+  }
+
+  componentDidMount(){
+    let whitepapers = this.state.whitepapers
+    for(let i=0; i < whitepapers.length; i++) {
+      whitepapers[i].pdfUri = this.getDownloadLink(whitepapers[i]._links)
     }
+    this.setState(whitepapers)
+  }
+
+  render() {
+    const { whitepapers } = this.state;
+    return (
+      <ReaderContainer className="ui stackable cards centered">
+        {whitepapers.map(paper => WhitePaper(paper.title.rendered, paper.content.rendered, paper.id, paper.pdfUri))}
+      </ReaderContainer>
+    );
+  }
 }
 
 const ReaderContainer = styled.div`
-  height: 10vh;
+  margin-top: 10vh;
   width: 96vw;
-`
-const PaperTitle = styled.div`
-  color: black;
-  font-size: calc(10px + 1vmin);
-  font-family: 'Playfair Display', serif;
-`
-
-const PaperContent = styled.div`
-  color: black;
-  font-size: calc(10px + 1vmin);
-  font-family: 'Lato', sans-serif;
-`
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+`;
 
 export default Reader;

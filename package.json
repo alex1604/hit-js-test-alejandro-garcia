@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "html-truncate": "^1.2.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-html-parser": "^2.0.2",
     "react-scripts": "2.1.8",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.86.0",
     "styled-components": "^4.2.0"
   },
   "scripts": {
@@ -14,7 +17,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/App.js src/components/**/*.js"
+    "lint": "eslint src/App.js src/components/**/*.js",
+    "lint:fix": "eslint src/App.js src/components/**/*.js --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
