@@ -4,11 +4,11 @@ import WhitePaper from './WhitePaper';
 
 
 const readerStyle = {
-  marginTop: '3vh',
-  width: '96vw',
+  marginTop: '5vh',
+  width: '90vw',
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'space-around',
+  justifyContent: 'center'
 };
 
 class Reader extends Component {
