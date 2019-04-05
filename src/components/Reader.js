@@ -29,8 +29,8 @@ class Reader extends Component {
 
 
   render() {
-    const { whitepapers } = this.state;
-    const renderWhitePapers = this.state.papersLoaded ? whitepapers.map(paper => WhitePaper(paper)) : null;
+    const { whitepapers, papersLoaded } = this.state;
+    const renderWhitePapers = papersLoaded ? whitepapers.map(paper => WhitePaper(paper)) : null;
     return (
       <div style={readerStyle} className="ui stackable cards centered">
         {renderWhitePapers}

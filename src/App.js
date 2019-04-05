@@ -13,6 +13,15 @@ class App extends Component {
     this.getDownloadLink = this.getDownloadLink.bind(this);
   }
 
+  async componentDidMount() {
+    const response = await fetch('https://humanit.se/wp-json/wp/v2/whitepaper');
+    const json = await response.json();
+    await this.addPdf(json);
+    this.setState({ whitepapers: json }, () => {
+      this.setState({ loadedPapers: true });
+    });
+  }
+
   async getDownloadLink(links) {
     const attachmentUri = links['wp:attachment'][0].href;
     if (attachmentUri === undefined) {
@@ -40,18 +49,10 @@ class App extends Component {
     return Promise.all(promises); // returna något som vi kan skriva await framför
   }
 
-  async componentDidMount() {
-    const response = await fetch('https://humanit.se/wp-json/wp/v2/whitepaper');
-    const json = await response.json();
-    await this.addPdf(json);
-    this.setState({ whitepapers: json }, () => {
-      this.setState({ loadedPapers: true });
-    });
-  }
-
   render() {
-    const reader = this.state.loadedPapers !== false ? (
-      <Reader whitepapers={this.state.whitepapers} />
+    const { loadedPapers, whitepapers } = this.state
+    const reader = loadedPapers !== false ? (
+      <Reader whitepapers={whitepapers} />
     ) : null;
     return (
       <div className="App">
