@@ -1,4 +1,38 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Human IT - JavaScript Test / Alejandro Garcia
+
+*Basic development task for shortlisted candidates.*
+
+**Required skills:** JavaScript, CSS3, HTML5, Git
+
+# Task
+
+You will be provided with a link to a REST API where your mission is to present the data in an awesome way! Fetch and display our whitepapers. That includes titles, texts and images. The text **should** be truncated after 20 charachters. Someway to read more of the whitepaper **should** be included and an option to download the attached PDF-file if there is one available.
+
+ - You can use any modern framework that you feel comfortable to work with.
+ 
+## Details
+
+Use HIT Code guidelines when you write your code;  [https://github.com/humanit-se/dev-guidelines](https://github.com/humanit-se/dev-guidelines)
+
+Keep in mind your code needs to be maintained by an international team of developers. Show us that you understand what this means in a wider context. If you have time, include a basic unit test for the code.
+
+## Scope
+
+Your application should be fully responsive support the latest Chrome, Safari and Firefox as well as IE11/Edge+ and should work in the latest mobile versions of Chrome and Safari.
+
+## Delivery
+
+Please submit your application by e-mailing us an URL to your public (open source)  [bitbucket.org](http://bitbucket.org/)  with your working code.
+
+Repository should be ready to use after cloning and your repository should include details on how to install your application.
+
+*Happy deving*
+
+/Human IT
+
+## // HOW TO RUN THE PROJECT
+
+## This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -28,6 +62,12 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
+
+### `npm run lint`
+Makes a check on App.js and all the files in src/components and logs errors and warnings based on the eslint rules of the project and airbnb's style guide for ES6 and React.
+
+### `npm run lint:fix`
+Fixes errors and warnings based on the eslint rules of the project and airbnb's style guide for ES6 and React and logs reamining errors and warnings that need manual solving.
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
