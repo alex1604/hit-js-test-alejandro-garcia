@@ -9,11 +9,12 @@ class App extends Component {
     this.state = {
       loadedPapers: false
     }
+    this.addPdf = this.addPdf.bind(this)
     this.getDownloadLink = this.getDownloadLink.bind(this)
   }
 
-  async getDownloadLink (links) {
-    let attachmentUri = links["wp:attachment"][0].href
+  async getDownloadLink(links) {
+    const attachmentUri = links["wp:attachment"][0].href
     if (attachmentUri === undefined) {
       return -1
     }
@@ -25,24 +26,27 @@ class App extends Component {
     return pdfUri
   }
 
-  addPdf = (papers) => {
-    return papers.map(paper => {
-      this.getDownloadLink(paper._links).then(function(res) {
-        paper['downloadLink'] = res
-      })
-    })
+  addPdf (papers) {
+    var self = this
+    let promises = papers.map(paper => new Promise(function(resolve, reject) {
+       // ett promise för varje download link
+       self.getDownloadLink(paper._links).then(function(res) {
+          paper.downloadLink = res;
+          resolve();  // tala om att detta promise är färdigt
+       });
+    }))
+    return Promise.all(promises)  // returna något som vi kan skriva await framför
   }
 
   async componentDidMount() {
     const response = await fetch('https://humanit.se/wp-json/wp/v2/whitepaper');
-    const json = await response.json();
+    let json = await response.json();
     await this.addPdf(json)
-    console.log(json)
     this.setState({ whitepapers: json}, () => {
-      console.log(this.state.whitepapers)
       this.setState({loadedPapers: true})
     })
   }
+ 
   render() {
     let reader = this.state.loadedPapers !== false ? (
       <Reader whitepapers={this.state.whitepapers}/>
@@ -50,7 +54,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h2 className="mainTitle">Human IT News</h2>
+          <h2 className="mainTitle">Human IT Whitepapers</h2>
         </header>
         {reader}
       </div>
