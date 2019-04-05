@@ -3,9 +3,11 @@
 *Basic development task for shortlisted candidates.*
 
 **Required skills:** JavaScript, CSS3, HTML5, Git
+
 **Extra skills/frameworks used for this project:** 
-    **Frameworks:** React.js
-    **Libraries:** Semantic UI React, Styled Components
+
+**Frameworks:** React.js
+**Libraries:** Semantic UI React, Styled Components
 
 # Task
 
