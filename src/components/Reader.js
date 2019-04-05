@@ -29,6 +29,10 @@ class Reader extends Component {
     this.expandArticle = this.expandArticle.bind(this);
   }
 
+  /*static propTypes = {
+    whitepapers: PropTypes.object
+  }*/
+
   async componentDidMount() {
     const { whitepapers } = this.props;
     this.setState({ whitepapers }, () => {
@@ -37,7 +41,7 @@ class Reader extends Component {
   }
 
   expandArticle(event) {
-    console.log(event.target.key);
+    //console.log(event.target.key);
   }
 
 

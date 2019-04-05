@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 import ReactHtmlParser from 'react-html-parser';
-import ModalPaper from './Modal'
+import ModalPaper from './ModalPaper'
 
 const truncate = require('html-truncate');
 
@@ -55,9 +55,10 @@ class WhitePaper extends Component {
     this.expandArticle = this.expandArticle.bind(this)
   }
 
-  static propType = {
+  /*static propType = {
       paper: ProppTypes.object
-  }
+  }*/
+  
   componentDidMount(){
     const { paper } = this.state
     let truncatedContent = truncate(paper.content.rendered, 20, {ellipsis: '...'});
@@ -67,7 +68,7 @@ class WhitePaper extends Component {
   }
   expandArticle() {
     const { paper } = this.state
-    console.log(paper.id)
+    //console.log(paper.id)
   }
 
   render() {

@@ -10,9 +10,10 @@ class ModalPaper extends Component {
     };
   }
 
-  componentDidMount() {
-
-  }
+  /*static propTypes = {
+      trigger: PropTypes.any,
+      paper: PropTypes.object
+  }*/
 
   render() {
     const { trigger, paper } = this.props;
