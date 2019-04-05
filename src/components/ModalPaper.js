@@ -20,8 +20,7 @@ class ModalPaper extends Component {
     return (
       <Modal trigger={trigger}>
         <Modal.Header>Det digitala Paraplyet</Modal.Header>
-        <Modal.Content image>
-          <Image wrapped size="medium" src="https://react.semantic-ui.com/images/avatar/large/rachel.png" />
+        <Modal.Content>
           <Modal.Description>
             <Header>{paper.title.rendered}</Header>
             {ReactHtmlParser(paper.content.rendered)}
