@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 import ReactHtmlParser from 'react-html-parser';
+import ModalPaper from './Modal'
 
 const truncate = require('html-truncate');
 
@@ -22,7 +23,7 @@ const titleStyle = {
     width: '90%'
 };
 const pStyle = {
-    textAlign: 'justify',
+    textAlign: 'left',
 };
 const paperStyle = {
     minHeight: '25vh',
@@ -67,21 +68,22 @@ class WhitePaper extends Component {
   render() {
     const { paper, truncatedContent } = this.state
     return (
+        <ModalPaper paper={paper} trigger={
         <Card key={paper.id} style={cardStyle} onClick={this.expandArticle}>
         <Card.Content style={paperStyle}>
             <Card.Header style={titleStyle}><p style={pStyle}>{paper.title.rendered}</p></Card.Header>
-                <Card.Description>
+                <Card.Description style={contentStyle}>
                     {truncatedContent}
                 </Card.Description>
         </Card.Content>
         {paper.downloadLink !== undefined ? (
             <Card.Content style={iconStyle} extra>
                 <a href={paper.downloadLink} target="_blank" rel="noopener noreferrer" download={`${paper.title}.pdf`}>
-                    <Icon style={iconStyle} name="file pdf outline" />
+                    <Icon style={iconStyle} name="big file pdf outline" />
                 </a>
             </Card.Content>
         ) : null}
-    </Card>
+    </Card>}/>
     );
   }
 }
