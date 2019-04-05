@@ -3,6 +3,9 @@
 *Basic development task for shortlisted candidates.*
 
 **Required skills:** JavaScript, CSS3, HTML5, Git
+**Extra skills/frameworks used for this project:** 
+    **Frameworks:** React.js
+    **Libraries:** Semantic UI React, Styled Components
 
 # Task
 
@@ -63,12 +66,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `npm run eject`
 
-### `npm run lint`
-Makes a check on App.js and all the files in src/components and logs errors and warnings based on the eslint rules of the project and airbnb's style guide for ES6 and React.
-
-### `npm run lint:fix`
-Fixes errors and warnings based on the eslint rules of the project and airbnb's style guide for ES6 and React and logs reamining errors and warnings that need manual solving.
-
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
 If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
@@ -76,6 +73,12 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+### `npm run lint`
+Makes a check on App.js and all the files in src/components and logs errors and warnings based on the eslint rules of the project and airbnb's style guide for ES6 and React.
+
+### `npm run lint:fix`
+Fixes errors and warnings based on the eslint rules of the project and airbnb's style guide for ES6 and React and logs reamining errors and warnings that need manual solving.
 
 ## Learn More
 
