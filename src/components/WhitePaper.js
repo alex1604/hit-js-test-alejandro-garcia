@@ -52,6 +52,11 @@ class WhitePaper extends Component {
     this.state = {
         paper: this.props.paper
     }
+    this.expandArticle = this.expandArticle.bind(this)
+  }
+
+  static propType = {
+      paper: ProppTypes.object
   }
   componentDidMount(){
     const { paper } = this.state
@@ -60,7 +65,7 @@ class WhitePaper extends Component {
     console.log(truncatedContent)
     this.setState({truncatedContent: truncatedContent})
   }
-  expandArticle = () => {
+  expandArticle() {
     const { paper } = this.state
     console.log(paper.id)
   }

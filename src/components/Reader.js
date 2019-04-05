@@ -8,7 +8,7 @@ const readerContainer = {
   width: '90vw',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center'
+  justifyContent: 'center',
 };
 
 const readerStyle = {
@@ -16,7 +16,7 @@ const readerStyle = {
   width: '90vw',
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center'
+  justifyContent: 'center',
 };
 
 class Reader extends Component {
@@ -26,6 +26,7 @@ class Reader extends Component {
       papersLoaded: false,
     };
     this.parser = new DOMParser();
+    this.expandArticle = this.expandArticle.bind(this);
   }
 
   async componentDidMount() {
@@ -34,19 +35,24 @@ class Reader extends Component {
       this.setState({ papersLoaded: true });
     });
   }
-  expandArticle = event => {
-    console.log(event.target.key)
+
+  expandArticle(event) {
+    console.log(event.target.key);
   }
 
 
   render() {
     const { whitepapers, papersLoaded } = this.state;
-    let renderPapers = papersLoaded ? whitepapers.map(paper => {
-      return <WhitePaper paper={paper} key={paper.id} expand={this.expandArticle} />
-    }) : null
+    const renderPapers = papersLoaded ? whitepapers.map(paper => <WhitePaper paper={paper} key={paper.id} expand={this.expandArticle} />) : null;
     return (
       <div style={readerContainer}>
-        <p style={{ color: 'blue', textAlign: 'right', fontFamily: 'Lato, sans-serif', fontSize: '1em', alignSelf:'flex-end' }}><Icon name="info" />Click anywhere on a card to expand its content.</p>
+        <p style={{
+          color: 'blue', textAlign: 'right', fontFamily: 'Lato, sans-serif', fontSize: '1em', alignSelf: 'flex-end',
+        }}
+        >
+          <Icon name="info" />
+Click anywhere on a card to expand its content.
+        </p>
         <div style={readerStyle} className="ui stackable cards centered">
           {papersLoaded ? renderPapers : null}
         </div>
