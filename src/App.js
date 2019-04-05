@@ -31,7 +31,7 @@ class App extends Component {
     const body = await response.body.getReader().read();
     const decoded = await String.fromCharCode(...new Uint8Array(body.value));
     const parsed = await JSON.parse(decoded);
-    const pdfUri = parsed[0] !== undefined ? await parsed[0].source_url : undefined;
+    const pdfUri = await parsed[0] !== undefined ? parsed[0].source_url : undefined;
     return pdfUri;
   }
 

@@ -53,24 +53,21 @@ class WhitePaper extends Component {
     }
   }
   componentDidMount(){
-    const { paper } = this.state
-    let truncatedContent = truncate(paper.content.rendered, 20, {ellipsis: '...'});
+    let truncatedContent = truncate(paper.content.rendered, 20, {ellipsis: '<a>...</a>'});
     truncatedContent = ReactHtmlParser(truncatedContent);
-    console.log(truncatedContent)
     this.setState({truncatedContent: truncatedContent})
   }
   expandArticle = () => {
-    const { paper } = this.state
     console.log(paper.id)
   }
 
   render() {
     const { paper, truncatedContent } = this.state
     return (
-        <Card key={paper.id} style={cardStyle} onClick={this.expandArticle}>
+        <Card key={paper.id} style={cardStyle}>
         <Card.Content style={paperStyle}>
             <Card.Header style={titleStyle}><p style={pStyle}>{paper.title.rendered}</p></Card.Header>
-                <Card.Description>
+                <Card.Description onClick={this.expandArticle}>
                     {truncatedContent}
                 </Card.Description>
         </Card.Content>
