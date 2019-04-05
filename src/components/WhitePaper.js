@@ -8,7 +8,7 @@ const truncate = require('html-truncate');
 const cardStyle = {
     minHeight: '30vh',
     minWidth: '25vw',
-    border: '2px solid black',
+    border: '1px solid gray',
     borderRadius: '0px',
     display: 'flex',
     flexDirection: 'column',
@@ -39,6 +39,13 @@ const iconStyle = {
     color: 'blue'
 }
 
+const hoveredIconStyle = {
+    position: 'absolute',
+    bottom: '3%',
+    right: '2%',
+    color: 'green' 
+}
+
 const contentStyle = {
     fontFamily: 'Lato, sans-serif',
     fontSize: '1.2em',
@@ -50,15 +57,17 @@ class WhitePaper extends Component {
   constructor(props){
     super(props);
     this.state = {
-        paper: this.props.paper
+        paper: this.props.paper,
+        isPdfHovered: false
     }
     this.expandArticle = this.expandArticle.bind(this)
+    this.hoverUnHover = this.hoverUnHover.bind(this)
   }
 
   /*static propType = {
       paper: ProppTypes.object
   }*/
-  
+
   componentDidMount(){
     const { paper } = this.state
     let truncatedContent = truncate(paper.content.rendered, 20, {ellipsis: '...'});
@@ -69,6 +78,10 @@ class WhitePaper extends Component {
   expandArticle() {
     const { paper } = this.state
     //console.log(paper.id)
+  }
+
+  hoverUnHover(){
+      this.setState({isPdfHovered: !this.state.isPdfHovered})
   }
 
   render() {
@@ -84,8 +97,16 @@ class WhitePaper extends Component {
         </Card.Content>
         {paper.downloadLink !== undefined ? (
             <Card.Content style={iconStyle} extra>
-                <a href={paper.downloadLink} target="_blank" rel="noopener noreferrer" download={`${paper.title}.pdf`}>
-                    <Icon style={iconStyle} name="big file pdf outline" />
+                <a 
+                href={paper.downloadLink} 
+                target="_blank" rel="noopener noreferrer" 
+                download={`${paper.title}.pdf`}
+                >
+                    <Icon style={this.state.isPdfHovered ? iconStyle : hoveredIconStyle} 
+                    name="big file pdf outline" 
+                    onMouseOver={this.hoverUnHover}
+                    onMouseOut={this.hoverUnHover}
+                    />
                 </a>
             </Card.Content>
         ) : null}
