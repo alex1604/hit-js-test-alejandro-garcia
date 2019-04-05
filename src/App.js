@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   render() {
-    const { loadedPapers, whitepapers } = this.state
+    const { loadedPapers, whitepapers } = this.state;
     const reader = loadedPapers !== false ? (
       <Reader whitepapers={whitepapers} />
     ) : null;
