@@ -3,7 +3,7 @@ import { Header, Image, Modal } from 'semantic-ui-react';
 import ReactHtmlParser from 'react-html-parser';
 
 const modalStyle = {
-  border: '1px solid gray',
+  border: '2px solid black',
   borderRadius: '0px'
 }
 

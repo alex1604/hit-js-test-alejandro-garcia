@@ -8,7 +8,7 @@ const truncate = require('html-truncate');
 const cardStyle = {
     minHeight: '30vh',
     minWidth: '25vw',
-    border: '1px solid gray',
+    border: '3px solid gray',
     borderRadius: '0px',
     display: 'flex',
     flexDirection: 'column',
