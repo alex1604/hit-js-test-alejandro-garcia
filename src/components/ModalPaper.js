@@ -4,7 +4,8 @@ import ReactHtmlParser from 'react-html-parser';
 
 const modalStyle = {
   border: '2px solid black',
-  borderRadius: '0px'
+  borderRadius: '0px',
+  padding: '5%'
 }
 
 const headerStyle = {
