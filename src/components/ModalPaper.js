@@ -2,6 +2,26 @@ import React, { Component } from 'react';
 import { Header, Image, Modal } from 'semantic-ui-react';
 import ReactHtmlParser from 'react-html-parser';
 
+const modalStyle = {
+  border: '1px solid gray',
+  borderRadius: '0px'
+}
+
+const headerStyle = {
+  fontSize: '1.3em',
+  fontFamily: 'Permanent Marker, cursive'
+}
+
+const titleStyle = {
+  fontFamily: 'Lato, sans-serif',
+  fontSize: '1.2em',
+}
+
+const descriptionStyle = {
+  fontFamily: 'Lato, sans-serif',
+  fontSize: '1.2em',
+}
+
 class ModalPaper extends Component {
   constructor(props) {
     super(props);
@@ -18,12 +38,14 @@ class ModalPaper extends Component {
   render() {
     const { trigger, paper } = this.props;
     return (
-      <Modal trigger={trigger}>
-        <Modal.Header>Det digitala Paraplyet</Modal.Header>
+      <Modal trigger={trigger} style={modalStyle}>
+        <Modal.Header style={headerStyle}>Det digitala Paraplyet</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Header>{paper.title.rendered}</Header>
+            <Header style={titleStyle}>{paper.title.rendered}</Header>
+            <div style={descriptionStyle}>
             {ReactHtmlParser(paper.content.rendered)}
+            </div>
           </Modal.Description>
         </Modal.Content>
       </Modal>

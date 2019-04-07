@@ -18,7 +18,7 @@ const cardStyle = {
     marginLeft: '1vw'
 };
 const titleStyle = {
-    fontFamily: 'Playfair Display, serif',
+    fontFamily: 'Permanent Marker, sans-serif',
     fontSize: '1.3em',
     width: '90%'
 };
@@ -87,7 +87,7 @@ class WhitePaper extends Component {
   render() {
     const { paper, truncatedContent } = this.state
     return (
-        <ModalPaper paper={paper} trigger={
+        <ModalPaper paper={paper} trigger={  // modal component wraps card component since card is the modal's trigger
         <Card key={paper.id} style={cardStyle} onClick={this.expandArticle}>
         <Card.Content style={paperStyle}>
             <Card.Header style={titleStyle}><p style={pStyle}>{paper.title.rendered}</p></Card.Header>
