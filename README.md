@@ -39,6 +39,10 @@ Repository should be ready to use after cloning and your repository should inclu
 
 ## This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This project has been developed with React JS, Semantic UI React and Styled Components
+
+The font theme used for the project is Lato and Permanent Marker from Google Fonts as I wanted to preserve the original style of the whitepapers available on Human IT's website.
+
 ## Available Scripts
 
 In the project directory, you can run:
