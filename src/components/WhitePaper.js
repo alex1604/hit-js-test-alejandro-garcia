@@ -18,7 +18,7 @@ const cardStyle = {
     marginLeft: '1vw'
 };
 const titleStyle = {
-    fontFamily: 'Permanent Marker, sans-serif',
+    fontFamily: 'Lato, sans-serif',
     fontSize: '1.3em',
     width: '90%'
 };
