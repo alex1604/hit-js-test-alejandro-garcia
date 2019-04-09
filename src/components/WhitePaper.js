@@ -60,7 +60,6 @@ class WhitePaper extends Component {
         paper: this.props.paper,
         isPdfHovered: false
     }
-    this.expandArticle = this.expandArticle.bind(this)
     this.hoverUnHover = this.hoverUnHover.bind(this)
   }
 
@@ -74,10 +73,6 @@ class WhitePaper extends Component {
     truncatedContent = ReactHtmlParser(truncatedContent);
     console.log(truncatedContent)
     this.setState({truncatedContent: truncatedContent})
-  }
-  expandArticle() {
-    const { paper } = this.state
-    //console.log(paper.id)
   }
 
   hoverUnHover(){

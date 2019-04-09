@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Image, Modal } from 'semantic-ui-react';
+import { Header, Icon, Modal } from 'semantic-ui-react';
 import ReactHtmlParser from 'react-html-parser';
 
 const modalStyle = {
@@ -23,31 +23,63 @@ const descriptionStyle = {
   fontSize: '1.2em',
 }
 
+const iconStyle = {
+  position: 'absolute',
+  bottom: '3%',
+  right: '2%',
+  color: 'blue'
+}
+
+const hoveredIconStyle = {
+  position: 'absolute',
+  bottom: '3%',
+  right: '2%',
+  color: 'green'
+}
+
 class ModalPaper extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      isPdfHovered: false
     };
+    this.hoverUnHover = this.hoverUnHover.bind(this)
   }
-
+  hoverUnHover() {
+    this.setState({ isPdfHovered: !this.state.isPdfHovered })
+  }
   /*static propTypes = {
       trigger: PropTypes.any,
       paper: PropTypes.object
   }*/
 
   render() {
+
     const { trigger, paper } = this.props;
     return (
-      <Modal trigger={trigger} style={modalStyle}>
-        <Modal.Header style={headerStyle}>Det digitala Paraplyet</Modal.Header>
+      <Modal trigger={trigger} style={modalStyle} closeIcon>
+        <Modal.Header style={headerStyle}>Det digitala Paraplyet
+        </Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Header style={titleStyle}>{paper.title.rendered}</Header>
             <div style={descriptionStyle}>
-            {ReactHtmlParser(paper.content.rendered)}
+              {ReactHtmlParser(paper.content.rendered)}
             </div>
           </Modal.Description>
+        </Modal.Content>
+        <Modal.Content>
+        <a
+            href={paper.downloadLink}
+            target="_blank" rel="noopener noreferrer"
+            download={`${paper.title}.pdf`}
+          >
+            <Icon style={this.state.isPdfHovered ? iconStyle : hoveredIconStyle}
+              name="big file pdf outline"
+              onMouseOver={this.hoverUnHover}
+              onMouseOut={this.hoverUnHover}
+            />
+          </a>
         </Modal.Content>
       </Modal>
     );
