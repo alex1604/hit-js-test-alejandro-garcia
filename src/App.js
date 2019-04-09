@@ -41,8 +41,20 @@ class App extends Component {
       // ett promise för varje download link
       self.getDownloadLink(paper._links).then((res) => {
         paper.downloadLink = res;
-        resolve(); // tala om att detta promise är färdigt
-      }).catch((err) => {
+        paper.fileName = paper.slug + '.pdf'
+      }).then(() => {
+        if (paper.downloadLink !== undefined) {
+          fetch('http://localhost:3001/save?file=' + paper.downloadLink + '&fileName=' + paper.slug + '.pdf', {
+            method: 'GET'
+          }).then((res) => {
+            console.log(res)
+          }).catch((err) => console.log(err))
+        }
+      })
+      .then(()=>{
+        resolve()
+      })
+      .catch((err) => {
         reject(err);
       });
     })));

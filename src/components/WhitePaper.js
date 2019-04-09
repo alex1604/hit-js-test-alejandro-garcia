@@ -43,7 +43,7 @@ const hoveredIconStyle = {
     position: 'absolute',
     bottom: '3%',
     right: '2%',
-    color: 'green' 
+    color: 'green'
 }
 
 const contentStyle = {
@@ -54,60 +54,53 @@ const contentStyle = {
 }
 
 class WhitePaper extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-        paper: this.props.paper,
-        isPdfHovered: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            paper: this.props.paper,
+            isPdfHovered: false
+        }
+        this.hoverUnHover = this.hoverUnHover.bind(this)
     }
-    this.hoverUnHover = this.hoverUnHover.bind(this)
-  }
 
-  /*static propType = {
-      paper: ProppTypes.object
-  }*/
+    componentDidMount() {
+        const { paper } = this.state
+        let truncatedContent = truncate(paper.content.rendered, 20, { ellipsis: '...' });
+        truncatedContent = ReactHtmlParser(truncatedContent);
+        console.log(truncatedContent)
+        this.setState({ truncatedContent: truncatedContent })
+    }
 
-  componentDidMount(){
-    const { paper } = this.state
-    let truncatedContent = truncate(paper.content.rendered, 20, {ellipsis: '...'});
-    truncatedContent = ReactHtmlParser(truncatedContent);
-    console.log(truncatedContent)
-    this.setState({truncatedContent: truncatedContent})
-  }
+    hoverUnHover() {
+        this.setState({ isPdfHovered: !this.state.isPdfHovered })
+    }
 
-  hoverUnHover(){
-      this.setState({isPdfHovered: !this.state.isPdfHovered})
-  }
-
-  render() {
-    const { paper, truncatedContent } = this.state
-    return (
-        <ModalPaper paper={paper} trigger={  // modal component wraps card component since card is the modal's trigger
-        <Card key={paper.id} style={cardStyle} onClick={this.expandArticle}>
-        <Card.Content style={paperStyle}>
-            <Card.Header style={titleStyle}><p style={pStyle}>{paper.title.rendered}</p></Card.Header>
-                <Card.Description style={contentStyle}>
-                    {truncatedContent}
-                </Card.Description>
-        </Card.Content>
-        {paper.downloadLink !== undefined ? (
-            <Card.Content style={iconStyle} extra>
-                <a 
-                href={paper.downloadLink} 
-                target="_blank" rel="noopener noreferrer" 
-                download={`${paper.title}.pdf`}
-                >
-                    <Icon style={this.state.isPdfHovered ? iconStyle : hoveredIconStyle} 
-                    name="big file pdf outline" 
-                    onMouseOver={this.hoverUnHover}
-                    onMouseOut={this.hoverUnHover}
-                    />
-                </a>
-            </Card.Content>
-        ) : null}
-    </Card>}/>
-    );
-  }
+    render() {
+        const { paper, truncatedContent } = this.state
+        var fileName = paper.fileName
+        return (
+            <ModalPaper paper={paper} trigger={  // modal component wraps card component since card is the modal's trigger
+                <Card key={paper.id} style={cardStyle} onClick={this.expandArticle}>
+                    <Card.Content style={paperStyle}>
+                        <Card.Header style={titleStyle}><p style={pStyle}>{paper.title.rendered}</p></Card.Header>
+                        <Card.Description style={contentStyle}>
+                            {truncatedContent}
+                        </Card.Description>
+                    </Card.Content>
+                    {paper.downloadLink !== undefined ? (
+                        <Card.Content style={iconStyle} extra>
+                        <a href={`http://localhost:3001/download?fileName=${fileName}`}
+                        download>
+                            <Icon style={this.state.isPdfHovered ? iconStyle : hoveredIconStyle}
+                                name="big file pdf outline"
+                                onMouseOver={this.hoverUnHover}
+                                onMouseOut={this.hoverUnHover}
+                            /></a>
+                        </Card.Content>
+                    ) : null}
+                </Card>} />
+        );
+    }
 }
 
 export default WhitePaper;

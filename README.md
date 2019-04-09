@@ -49,6 +49,8 @@ In the project directory, you can run:
 
 ### `npm start`
 
+* Make sure that port 3000 and 3001 are available since the web app and node server are programmed to run on those ports
+
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
