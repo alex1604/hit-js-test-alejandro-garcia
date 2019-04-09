@@ -56,6 +56,7 @@ class ModalPaper extends Component {
   render() {
 
     const { trigger, paper } = this.props;
+    const fileName = paper.fileName
     return (
       <Modal trigger={trigger} style={modalStyle} closeIcon>
         <Modal.Header style={headerStyle}>Det digitala Paraplyet
@@ -68,19 +69,17 @@ class ModalPaper extends Component {
             </div>
           </Modal.Description>
         </Modal.Content>
+        {paper.downloadLink !== undefined && paper.slug !== undefined ? (
         <Modal.Content>
-        <a
-            href={paper.downloadLink}
-            target="_blank" rel="noopener noreferrer"
-            download={`${paper.title}.pdf`}
-          >
+        <a href={`http://localhost:3001/download?fileName=${fileName}`}
+        download>
             <Icon style={this.state.isPdfHovered ? iconStyle : hoveredIconStyle}
               name="big file pdf outline"
               onMouseOver={this.hoverUnHover}
               onMouseOut={this.hoverUnHover}
             />
           </a>
-        </Modal.Content>
+        </Modal.Content>) : null}
       </Modal>
     );
   }

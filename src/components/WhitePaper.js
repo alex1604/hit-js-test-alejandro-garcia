@@ -77,7 +77,8 @@ class WhitePaper extends Component {
 
     render() {
         const { paper, truncatedContent } = this.state
-        var fileName = paper.fileName
+        var fileName = paper.fileName.trim()
+        console.log(fileName)
         return (
             <ModalPaper paper={paper} trigger={  // modal component wraps card component since card is the modal's trigger
                 <Card key={paper.id} style={cardStyle} onClick={this.expandArticle}>
@@ -87,7 +88,7 @@ class WhitePaper extends Component {
                             {truncatedContent}
                         </Card.Description>
                     </Card.Content>
-                    {paper.downloadLink !== undefined ? (
+                    {paper.downloadLink !== undefined && paper.slug !== undefined ? (
                         <Card.Content style={iconStyle} extra>
                         <a href={`http://localhost:3001/download?fileName=${fileName}`}
                         download>
