@@ -6,7 +6,8 @@
 
 **Extra skills/frameworks used for this project:** 
 
-**Frameworks:** React.js
+**Javascrip Runtime Environments:** Node.js
+**Frameworks:** React.js, Express.js
 **Libraries:** Semantic UI React, Styled Components
 
 # Task
